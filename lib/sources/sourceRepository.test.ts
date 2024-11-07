@@ -2,9 +2,9 @@
 /**
  * @jest-environment node
  */
-import { db } from '@/lib/database';
+import { cleanUpTables, db } from '@/lib/database';
 import { deleteTestDatabase, migrateToLatest } from '@/scripts/migration';
-import { save } from './sourceRepository';
+import { findAll, save } from './sourceRepository';
 
 
 describe('POST /api/sources', () => {
@@ -15,6 +15,10 @@ describe('POST /api/sources', () => {
 
   afterAll(async () => {
     await deleteTestDatabase()
+  })
+
+  afterEach(async () => {
+    await db.deleteFrom('source').execute()
   })
 
   it('should register a source successfully', async () => {
@@ -31,18 +35,21 @@ describe('POST /api/sources', () => {
     expect(rows[0].repository_name).toBe('repo');
   });
 
-  //   it('should return error for invalid source URL', async () => {
-  //     const sourceData = {
-  //       source: 'invalid-url',
-  //     };
+  it('should find all sources successfully', async () => {
+    // Test data
+    const sourceData = 'https://github.com/exampleUser/repo2.git';
+    // Run the POST function directly
+    await save(sourceData);
 
-  //     const req = createMockRequest(sourceData);
+    const sourceData2 = 'https://github.com/exampleUser/repo3.git';
+    // Run the POST function directly
+    await save(sourceData2);
 
-  //     // Run the POST function directly
-  //     const res = await POST(req);
+    // Query the in-memory database to check if the data was inserted
+    const rows = await findAll();
+    expect(rows).toHaveLength(2)
+    expect(rows[0].repository_owner).toBe('exampleUser');
+    expect(rows[0].repository_name).toBe('repo2');
+  });
 
-  //     // Check the response to ensure the error message is correct
-  //     expect(res.status).toBe(400);
-  //     expect(res.text).toMatch(/Error inserting data/);
-  //   });
 });

@@ -4,5 +4,4 @@ import { db } from '@/lib/database'
 export async function findAllDependencies() {
   return await db.selectFrom('dependency')
     .selectAll()
-    .executeTakeFirst()
 }

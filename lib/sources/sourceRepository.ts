@@ -13,3 +13,7 @@ export async function save(source: string) {
     })
     .execute()
 }
+
+export async function findAll() {
+  return await db.selectFrom("source").selectAll().execute();
+}
