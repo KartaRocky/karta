@@ -1,7 +1,8 @@
 // app/api/sources/route.ts
 import { NextRequest, NextResponse } from 'next/server';
-import { openDB } from '@/lib/database';
 import { getRepoName, getUserName } from '@/lib/git_helper';
+import { db } from '@/lib/database'
+import { save } from '@/lib/repositories/sourceRepository';
 
 
 
@@ -17,22 +18,7 @@ export async function POST(request: NextRequest) {
   try {
     const source = await request.json();
 
-    //const source = request.text;
-    console.log('source', source);
-    const repository_owner = getUserName(source);
-    const repository_name = getRepoName(source);
-
-    const db = await openDB();
-
-    // Insert the new source into the database
-    await db.run(
-      `INSERT INTO sources (source, repository_name, repository_owner) VALUES (?, ?, ?)`,
-      source,
-      repository_name,
-      repository_owner
-    );
-
-    console.log('inserted')
+    await save(source)
 
     return NextResponse.json({ message: 'Source registered successfully' }, { status: 201 });
   } catch (error) {

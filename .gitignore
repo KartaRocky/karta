@@ -41,3 +41,4 @@ next-env.d.ts
 
 .history
 database.sqlite
+database-test.sqlite

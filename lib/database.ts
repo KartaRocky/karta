@@ -1,22 +1,23 @@
-import sqlite3 from 'sqlite3';
-import { open, Database } from 'sqlite';
+import { Database } from '@/app/types' // this is the Database interface we defined earlier
+import SQLite from 'better-sqlite3'
+import { Kysely, SqliteDialect } from 'kysely'
+import { migrateToLatest } from '@/lib/migration'
 
-// Type for the database instance
-let db: Database<sqlite3.Database, sqlite3.Statement> | null = null;
-
-export async function openDB() {
-  if (!db) {
-    let filename = './database.sqlite'
-    if (process.env.NODE_ENV === 'test') {
-      filename = ":memory:"
-    }
-    db = await open({
-      filename: filename,
-      driver: sqlite3.Database,
-    });
-
-    if (process.env.NODE_ENV === 'test') {
-    }
-  }
-  return db;
+let dialect = null;
+if (process.env.NODE_ENV == 'test') {
+  dialect = new SqliteDialect({
+    database: new SQLite('database-test.sqlite'),
+  })
+} else {
+  dialect = new SqliteDialect({
+    database: new SQLite('database.sqlite'),
+  })
 }
+
+// Database interface is passed to Kysely's constructor, and from now on, Kysely 
+// knows your database structure.
+// Dialect is passed to Kysely's constructor, and from now on, Kysely knows how 
+// to communicate with your database.
+export const db = new Kysely<Database>({
+  dialect,
+});
