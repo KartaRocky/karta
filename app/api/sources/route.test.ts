@@ -6,10 +6,10 @@
 import { POST } from '@/app/api/sources/route'; // Import your route handler
 
 import { NextRequest } from 'next/server';
-import { save } from '@/lib/repositories/sourceRepository';
+import { save } from '@/lib/sources/sourceRepository';
 
 // Mock the dependencyRepository
-jest.mock('@/lib/repositories/sourceRepository');
+jest.mock('@/lib/sources/sourceRepository');
 describe('POST /api/sources', () => {
 
   it('should register a source successfully', async () => {

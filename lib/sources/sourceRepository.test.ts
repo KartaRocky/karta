@@ -3,7 +3,7 @@
  * @jest-environment node
  */
 import { db } from '@/lib/database';
-import { deleteTestDatabase, migrateToLatest } from '@/lib/migration';
+import { deleteTestDatabase, migrateToLatest } from '@/scripts/migration';
 import { save } from './sourceRepository';
 
 

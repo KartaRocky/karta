@@ -3,12 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "dev": "npm run migrate && next dev",
+    "build": "npm run migrate && next build",
     "start": "next start",
     "lint": "next lint",
     "test": "jest",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "migrate": "npx tsx scripts/migration.ts"
   },
   "dependencies": {
     "better-sqlite3": "^11.5.0",
@@ -41,6 +42,7 @@
     "tailwindcss": "^3.4.1",
     "ts-jest": "^29.2.5",
     "ts-node": "^10.9.2",
+    "tsx": "^4.19.2",
     "typescript": "^5"
   }
 }
