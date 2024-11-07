@@ -4,6 +4,15 @@ import { openDB } from '@/lib/database';
 import { getRepoName, getUserName } from '@/lib/git_helper';
 
 
+
+export async function GET() {
+  const items = [
+    { id: 1, name: 'Item 1' },
+    { id: 2, name: 'Item 2' },
+  ];
+  return NextResponse.json(items, { status: 200 });
+}
+
 export async function POST(request: NextRequest) {
   try {
     const source = await request.json();
@@ -23,13 +32,15 @@ export async function POST(request: NextRequest) {
       repository_owner
     );
 
+    console.log('inserted')
+
     return NextResponse.json({ message: 'Source registered successfully' }, { status: 201 });
-  } catch (error ) {
+  } catch (error) {
     if (error instanceof Error) {
-        if (error.message.includes("SQLITE_CONSTRAINT: UNIQUE")){
-            return new Response(null, { status: 204 });
-        }
-        return NextResponse.json({ error: "Error inserting data: " + error.message }, { status: 400 });
+      if (error.message.includes("SQLITE_CONSTRAINT: UNIQUE")) {
+        return new Response(null, { status: 204 });
+      }
+      return NextResponse.json({ error: "Error inserting data: " + error.message }, { status: 400 });
     }
     return NextResponse.json({ error: "Unknown error inserting data" }, { status: 500 });
   }
