@@ -1,6 +1,6 @@
 // app/api/sources/route.ts
 import { NextRequest, NextResponse } from 'next/server';
-import { save } from '@/lib/sources/sourceRepository';
+import { saveSource } from '@/lib/sources/sourceRepository';
 
 export async function GET() {
   const items = [
@@ -14,7 +14,7 @@ export async function POST(request: NextRequest) {
   try {
     const source = await request.json();
 
-    await save(source)
+    await saveSource(source)
 
     return NextResponse.json({ message: 'Source registered successfully' }, { status: 201 });
   } catch (error) {

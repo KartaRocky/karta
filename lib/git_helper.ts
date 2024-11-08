@@ -1,4 +1,4 @@
-import { BlobSchema, Gitlab, ProjectSchema } from "@gitbeaker/rest";
+import { BlobSchema, Gitlab, ProjectSchema, RepositoryFileExpandedSchema } from "@gitbeaker/rest";
 
 // Method to get the username from the Git URL
 export const getUserName = (gitUrl: string): string => {
@@ -54,18 +54,25 @@ export const getRepoName = (gitUrl: string): string => {
     throw new Error(`Invalid git URL: ${originalGitUrl}`);
 }
 
-export const findFileGitLab = async (fileFilter: string): Promise<BlobSchema[]> => {
+export const findFileGitLab = async (projectId: string | number, filePath: string, ref: string): Promise<RepositoryFileExpandedSchema> => {
     const api = new Gitlab({
         host: process.env.BASE_GIT_URL,
         token: process.env.PRIVATE_TOKEN,
     });
+    return api.RepositoryFiles.show(projectId, filePath, ref)
+}
 
+export const findBlobSchemasFileGitLab = async (fileFilter: string): Promise<BlobSchema[]> => {
+    const api = new Gitlab({
+        host: process.env.BASE_GIT_URL,
+        token: process.env.PRIVATE_TOKEN,
+    });
     return await api.Search.all("blobs", fileFilter, {
         showExpanded: false
     })
 }
 
-export const findProjectByIdGitLab = async (projectId: string): Promise<ProjectSchema> => {
+export const findProjectByIdGitLab = async (projectId: string | number): Promise<ProjectSchema> => {
     const api = new Gitlab({
         host: process.env.BASE_GIT_URL,
         token: process.env.PRIVATE_TOKEN,

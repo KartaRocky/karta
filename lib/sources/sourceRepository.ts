@@ -1,16 +1,17 @@
 import { db } from "../database";
 import { getRepoName, getUserName } from "../git_helper";
 
-export async function save(source: string) {
-    const repository_owner = getUserName(source);
-    const repository_name = getRepoName(source);
+export async function saveSource(url: string) {
+    const repository_owner = getUserName(url);
+    const repository_name = getRepoName(url);
 
     // Insert the new source into the database
     await db.insertInto("source").values({
-      source,
+      url,
       repository_name,
       repository_owner
     })
+    .onConflict((oc) => oc.doNothing())
     .execute()
 }
 

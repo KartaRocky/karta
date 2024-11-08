@@ -6,7 +6,7 @@
 import { POST } from '@/app/api/sources/route'; // Import your route handler
 
 import { NextRequest } from 'next/server';
-import { save } from '@/lib/sources/sourceRepository';
+import { saveSource } from '@/lib/sources/sourceRepository';
 
 // Mock the dependencyRepository
 jest.mock('@/lib/sources/sourceRepository');
@@ -14,7 +14,7 @@ describe('POST /api/sources', () => {
 
   it('should register a source successfully', async () => {
     // Test data
-    const mockSave = save as jest.Mock;
+    const mockSave = saveSource as jest.Mock;
     const sourceData = 'https://github.com/exampleUser/repo.git';
     mockSave.mockResolvedValueOnce(sourceData);
 

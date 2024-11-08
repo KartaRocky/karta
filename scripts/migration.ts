@@ -7,7 +7,7 @@ import {
     SqliteDialect,
 } from 'kysely'
 import SQLite from 'better-sqlite3'
-import { Database } from '@/app/types'
+import { Database } from '@/lib/types'
 
 export async function migrateToLatest() {
 

@@ -2,7 +2,7 @@
 /**
  * @jest-environment node
  */
-import { getUserName, getRepoName, findFileGitLab } from '@/lib/git_helper';
+import { getUserName, getRepoName, findFileGitLab, findBlobSchemasFileGitLab } from '@/lib/git_helper';
 
 describe('GitHelper', () => {
   // Test for HTTPS URLs
@@ -38,7 +38,7 @@ describe('GitHelper', () => {
   });
 
   test('findFileGitLab should return something', async () => {
-    const res = await findFileGitLab('path:data-products.yml')
+    const res = await findBlobSchemasFileGitLab('path:.karta.json')
     console.log(res)
     //expect(res).si
   })

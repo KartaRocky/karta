@@ -20,7 +20,7 @@ export interface DependencyTable {
 }
 
 export interface SourceTable {
-    source: string
+    url: string
     repository_name: string
     repository_owner: string
     created_at: ColumnType<Date, never, never>

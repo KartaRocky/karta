@@ -3,11 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "cross-env npm run migrate && nodemon",
+    "dev": "npm run migrate && cross-env nodemon",
     "build": "npm run migrate && next build && tsc --project tsconfig.server.json",
     "start": "cross-env NODE_ENV=production node dist/server.js",
     "lint": "next lint",
-    "test": "cross-env jest",
+    "test": "cross-env NODE_ENV=test npm run migrate && cross-env jest",
     "test:watch": "jest --watch",
     "migrate": "npx tsx scripts/migration.ts"
   },
