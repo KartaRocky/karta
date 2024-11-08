@@ -38,7 +38,7 @@ describe('GitHelper', () => {
   });
 
   test('findFileGitLab should return something', async () => {
-    const res = await findFileGitLab('data-products.yml')
+    const res = await findFileGitLab('path:data-products.yml')
     console.log(res)
     //expect(res).si
   })

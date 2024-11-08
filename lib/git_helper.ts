@@ -60,10 +60,9 @@ export const findFileGitLab = async (fileFilter: string): Promise<BlobSchema[]> 
         token: process.env.PRIVATE_TOKEN,
     });
 
-    const blobs = await api.Search.all("blobs", fileFilter, {
+    return await api.Search.all("blobs", fileFilter, {
         showExpanded: false
     })
-    return blobs.filter(v => v.filename === fileFilter)
 }
 
 export const findProjectByIdGitLab = async (projectId: string): Promise<ProjectSchema> => {
