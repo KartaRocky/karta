@@ -1,3 +1,4 @@
+import { BlobSchema, Gitlab, ProjectSchema } from "@gitbeaker/rest";
 
 // Method to get the username from the Git URL
 export const getUserName = (gitUrl: string): string => {
@@ -52,3 +53,25 @@ export const getRepoName = (gitUrl: string): string => {
 
     throw new Error(`Invalid git URL: ${originalGitUrl}`);
 }
+
+export const findFileGitLab = async (fileFilter: string): Promise<BlobSchema[]> => {
+    const api = new Gitlab({
+        host: process.env.BASE_GIT_URL,
+        token: process.env.PRIVATE_TOKEN,
+    });
+
+    const blobs = await api.Search.all("blobs", fileFilter, {
+        showExpanded: false
+    })
+    return blobs.filter(v => v.filename === fileFilter)
+}
+
+export const findProjectByIdGitLab = async (projectId: string): Promise<ProjectSchema> => {
+    const api = new Gitlab({
+        host: process.env.BASE_GIT_URL,
+        token: process.env.PRIVATE_TOKEN,
+    });
+
+    return await api.Projects.show(projectId)
+}
+

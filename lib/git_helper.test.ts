@@ -1,4 +1,8 @@
-import { getUserName, getRepoName } from '@/lib/git_helper';
+
+/**
+ * @jest-environment node
+ */
+import { getUserName, getRepoName, findFileGitLab } from '@/lib/git_helper';
 
 describe('GitHelper', () => {
   // Test for HTTPS URLs
@@ -32,5 +36,11 @@ describe('GitHelper', () => {
     const actual = getRepoName(gitUrl);
     expect(actual).toBe(expected);
   });
+
+  test('findFileGitLab should return something', async () => {
+    const res = await findFileGitLab('data-products.yml')
+    console.log(res)
+    //expect(res).si
+  })
 
 });
