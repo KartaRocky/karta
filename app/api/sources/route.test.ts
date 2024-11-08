@@ -20,7 +20,7 @@ describe('POST /api/sources', () => {
 
     const request = new NextRequest(new Request('http://localhost', {
       method: 'POST',
-      body: JSON.stringify(sourceData),
+      body: JSON.stringify({url: sourceData, name: 'repo', path_with_namespace: 'exampleUser/repo'}),
     }));
 
     // Run the POST function directly

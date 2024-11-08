@@ -3,7 +3,6 @@
  * @jest-environment node
  */
 import { db } from '@/lib/database';
-import { deleteTestDatabase, migrateToLatest } from '@/scripts/migration';
 import { findAll, saveSource } from './sourceRepository';
 
 
@@ -19,7 +18,7 @@ describe('POST /api/sources', () => {
     const sourceData = 'https://github.com/exampleUser/repo.git';
 
     // Run the POST function directly
-    await saveSource(sourceData, 'repo', 'exempleUser/repo');
+    await saveSource({url: sourceData, name: 'repo', path_with_namespace: 'exempleUser/repo'});
 
     // Query the in-memory database to check if the data was inserted
     const rows = await db.selectFrom('sources').where("url", "=", sourceData).selectAll().execute();
@@ -32,11 +31,11 @@ describe('POST /api/sources', () => {
     // Test data
     const sourceData = 'https://github.com/exampleUser/repo2.git';
     // Run the POST function directly
-    await saveSource(sourceData, 'repo', 'exempleUser/repo2');
+    await saveSource({url: sourceData, name: 'repo', path_with_namespace: 'exempleUser/repo2'});
 
     const sourceData2 = 'https://github.com/exampleUser/repo3.git';
     // Run the POST function directly
-    await saveSource(sourceData2, 'repo', 'exempleUser/repo3');
+    await saveSource({url: sourceData2, name: 'repo', path_with_namespace: 'exempleUser/repo3'});
 
     // Query the in-memory database to check if the data was inserted
     const rows = await findAll();
