@@ -10,7 +10,7 @@ import { findAll } from './sources/sourceRepository';
 //   });
 // }
 
-const MAIN_BRANCHES = ['main', 'master']
+//const MAIN_BRANCHES = ['main', 'master']
 
 export function startCronJob() {
   console.log('Starting job');

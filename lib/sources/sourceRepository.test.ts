@@ -2,7 +2,7 @@
 /**
  * @jest-environment node
  */
-import { cleanUpTables, db } from '@/lib/database';
+import { db } from '@/lib/database';
 import { deleteTestDatabase, migrateToLatest } from '@/scripts/migration';
 import { findAll, save } from './sourceRepository';
 

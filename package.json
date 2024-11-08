@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "npm run migrate && next dev",
-    "build": "npm run migrate && next build",
-    "start": "next start",
+    "dev": "npm run migrate && nodemon",
+    "build": "npm run migrate && next build && tsc --project tsconfig.server.json",
+    "start": "cross-env NODE_ENV=production node dist/server.js",
     "lint": "next lint",
     "test": "jest",
     "test:watch": "jest --watch",
@@ -19,7 +19,8 @@
     "react": "^18.0.2",
     "react-dom": "^18.0.2",
     "sqlite": "^5.1.1",
-    "sqlite3": "^5.1.7"
+    "sqlite3": "^5.1.7",
+    "cross-env": "^7.0.3"
   },
   "devDependencies": {
     "@testing-library/dom": "^10.4.0",
@@ -43,6 +44,7 @@
     "ts-jest": "^29.2.5",
     "ts-node": "^10.9.2",
     "tsx": "^4.19.2",
-    "typescript": "^5"
+    "typescript": "^5",
+    "nodemon": "^2.0.20"
   }
 }
