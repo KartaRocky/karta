@@ -1,7 +1,9 @@
 import cron from 'node-cron';
-import { findAll, saveSource } from './sources/sourceRepository';
+import { findAll, findAllDependenciesBySource, saveAllSourceDependencies, saveSource } from './sources/sourceRepository';
 import { findBlobSchemasFileGitLab, findFileGitLab, findProjectByIdGitLab } from './git_helper';
 import { BlobSchema } from '@gitbeaker/rest';
+import { Dependency, KartaDependency } from './types';
+import { saveDependency } from './dependencies/dependencyRepository';
 // import sqlite3 from 'sqlite3';
 // import { open } from 'sqlite';
 
@@ -20,10 +22,20 @@ export async function startCronJob() {
   blobSchemas.forEach(async (blobSchema) => {
     const dep = await findFileGitLab(blobSchema.project_id, blobSchema.path, blobSchema.ref)
     const project = await findProjectByIdGitLab(blobSchema.project_id)
-    saveSource(project.web_url)
+    await saveSource(project.web_url, project.name, project.path_with_namespace)
     console.log(dep);
     console.log(project);
-    console.log(atob(dep.content))
+    const dependencies = JSON.parse(atob(dep.content)) as KartaDependency[]
+    console.log('deps', dependencies);
+    const dependencyIds: number[] = [];
+    dependencies.forEach(async(dep) => {
+      const saved = await saveDependency(dep)
+      dependencyIds.push(saved?.id || -1)
+    })
+
+    await saveAllSourceDependencies(project.web_url, dependencyIds)
+    const allSaved = await findAllDependenciesBySource(project.web_url)
+    console.log(allSaved)
   })
   console.log('Starting job');
   cron.schedule('* * * * *', async () => { // Every minute

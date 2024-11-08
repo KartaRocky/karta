@@ -11,7 +11,7 @@ describe('POST /api/sources', () => {
 
 
   afterEach(async () => {
-    await db.deleteFrom('dependency').execute()
+    await db.deleteFrom('dependencies').execute()
   })
 
   it('should register a dependency successfully', async () => {
@@ -21,10 +21,10 @@ describe('POST /api/sources', () => {
     const value = 'src_realtime_events'
 
     // Run the POST function directly
-    await saveDependency(who, what, value);
+    await saveDependency({who, what, value});
 
     // Query the in-memory database to check if the data was inserted
-    const rows = await db.selectFrom('dependency').where("who", "=", who).selectAll().execute();
+    const rows = await db.selectFrom('dependencies').where("who", "=", who).selectAll().execute();
     expect(rows).toHaveLength(1);
     expect(rows[0].who).toBe(who);
     expect(rows[0].what).toBe(what);
@@ -38,8 +38,8 @@ describe('POST /api/sources', () => {
     const value = 'src_realtime_events'
 
     // Run the POST function directly
-    await saveDependency(who, what, value);
-    const dep = await saveDependency(who, what, value);
+    await saveDependency({who, what, value});
+    const dep = await saveDependency({who, what, value});
 
     expect(dep?.who).toBe(who);
     expect(dep?.what).toBe(what);

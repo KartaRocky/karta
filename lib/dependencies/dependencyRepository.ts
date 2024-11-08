@@ -1,21 +1,20 @@
-import { db } from '@/lib/database'
-import { Dependency } from '../types'
-//import { Dependency, NewDependency } from '@/app/types'
+import { db } from '../database'
+import { Dependency, KartaDependency } from '../types'
 
 export async function findAllDependencies() {
-  return await db.selectFrom('dependency')
+  return await db.selectFrom('dependencies')
     .selectAll()
 }
 
-export async function saveDependency(who: string, what: string, value: string): Promise<Dependency | undefined> {
+export async function findAllDependenciesByIds(dependencyIds: number[]): Promise<Dependency[]> {
+  return await db.selectFrom('dependencies').selectAll().where("id", "in", dependencyIds).execute();
+}
+
+export async function saveDependency(dependency: KartaDependency): Promise<Dependency | undefined> {
 
   // Insert the new source into the database
-  return await db.insertInto("dependency").values({
-    who,
-    what,
-    value
-  })
-  .onConflict((oc) => oc.doUpdateSet({who, what, value}))
-  .returningAll()
-  .executeTakeFirst()
+  return await db.insertInto("dependencies").values(dependency)
+    .onConflict((oc) => oc.doUpdateSet(dependency))
+    .returningAll()
+    .executeTakeFirst()
 }
