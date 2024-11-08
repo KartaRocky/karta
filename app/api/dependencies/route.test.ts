@@ -5,7 +5,7 @@
 
 import { GET } from '@/app/api/dependencies/route'; // Import your route handler
 
-import { findAllSourceDependencies, saveSource } from '@/lib/sources/sourceRepository';
+import { findAllSourceDependencies } from '@/lib/sources/sourceRepository';
 
 // Mock the dependencyRepository
 jest.mock('@/lib/sources/sourceRepository');

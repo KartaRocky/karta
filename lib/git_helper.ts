@@ -81,3 +81,14 @@ export const findProjectByIdGitLab = async (projectId: string | number): Promise
     return await api.Projects.show(projectId)
 }
 
+// export const findProjectByIdGithub = async( projectId: string) => {
+//     const api = new Octokit(
+//         {
+//             baseUrl: process.env.BASE_GIT_URL,
+//             auth: process.env.PRIVATE_TOKEN
+//         }
+//     )
+//     const repos = await api.repos.listForOrg({org: 'KartaRocky'})
+//     console.log(repos);
+// }
+

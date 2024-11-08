@@ -8,6 +8,8 @@ import {
 } from 'kysely'
 import SQLite from 'better-sqlite3'
 import { Database } from '@/lib/types'
+import { fileURLToPath } from 'url'
+import { dirname } from 'path'
 
 export async function migrateToLatest() {
 
@@ -25,6 +27,9 @@ export async function migrateToLatest() {
     const db = new Kysely<Database>({
         dialect: dialect,
     })
+
+    const __filename = fileURLToPath(import.meta.url);
+    const __dirname = dirname(__filename);
 
     const migrator = new Migrator({
         db,

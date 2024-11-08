@@ -3,8 +3,7 @@
  * @jest-environment node
  */
 import { db } from '@/lib/database';
-import { deleteTestDatabase, migrateToLatest } from '@/scripts/migration';
-import { findAllDependencies, saveDependency } from './dependencyRepository';
+import { saveDependency } from './dependencyRepository';
 
 
 describe('POST /api/sources', () => {
