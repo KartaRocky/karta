@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "npm run cron & next dev",
+    "dev": "npm run migrate && npm run cron & next dev",
     "build": "npm run migrate && next build",
     "start": "next start",
     "lint": "next lint",
