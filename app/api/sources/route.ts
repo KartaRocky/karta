@@ -2,14 +2,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { SaveNewSource, saveSource } from '@/lib/sources/sourceRepository';
 
-export async function GET() {
-  const items = [
-    { id: 1, name: 'Item 1' },
-    { id: 2, name: 'Item 2' },
-  ];
-  return NextResponse.json(items, { status: 200 });
-}
-
 export async function POST(request: NextRequest) {
   try {
     const source: SaveNewSource = await request.json();

@@ -2,7 +2,7 @@
 /**
  * @jest-environment node
  */
-import { getUserName, getRepoName, findBlobSchemasFileGitLab } from '@/lib/git_helper';
+import { getUserName, getRepoName } from '@/lib/git_helper';
 
 describe('GitHelper', () => {
   // Test for HTTPS URLs
@@ -36,18 +36,4 @@ describe('GitHelper', () => {
     const actual = getRepoName(gitUrl);
     expect(actual).toBe(expected);
   });
-
-  test('findFileGitLab should return something', async () => {
-    const res = await findBlobSchemasFileGitLab('path:.karta.json')
-    console.log(res)
-    //expect(res).si
-  })
-
-
-  // test('findFileGitHub should return something', async () => {
-  //   const res = await findProjectByIdGithub('path:.karta.json')
-  //   console.log(res)
-  //   //expect(res).si
-  // })
-
 });

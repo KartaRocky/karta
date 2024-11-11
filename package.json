@@ -2,14 +2,16 @@
   "name": "karta",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
-    "dev": "npm run migrate && cross-env nodemon",
-    "build": "npm run migrate && next build && tsc --project tsconfig.server.json",
-    "start": "cross-env NODE_ENV=production node dist/server.js",
+    "dev": "npm run cron & next dev",
+    "build": "npm run migrate && next build",
+    "start": "next start",
     "lint": "next lint",
     "test": "cross-env NODE_ENV=test npm run migrate && cross-env jest",
     "test:watch": "jest --watch",
-    "migrate": "npx tsx scripts/migration.ts"
+    "migrate": "npx tsx scripts/migration.ts",
+    "cron": "npx tsx scripts/cron.ts"
   },
   "dependencies": {
     "@gitbeaker/rest": "^41.1.1",
@@ -42,6 +44,7 @@
     "jest-environment-jsdom": "^29.7.0",
     "node-mocks-http": "^1.16.1",
     "nodemon": "^2.0.20",
+    "pm2": "^5.4.2",
     "postcss": "^8",
     "tailwindcss": "^3.4.1",
     "ts-jest": "^29.2.5",

@@ -87,6 +87,7 @@ const config: Config = {
   //   "node_modules"
   // ],
 
+    extensionsToTreatAsEsm: ['.ts'],
   // An array of file extensions your modules use
   // moduleFileExtensions: [
   //   "js",

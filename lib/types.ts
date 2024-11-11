@@ -55,3 +55,12 @@ export interface SourceDependencies {
     source: Source
     dependencies: Dependency[]
 }
+
+export interface RepoFileSchema {
+    repoFullName: string,
+    repoName: string,
+    repoUrl: string,
+    repoOwner: string,
+    fileName: string,
+    filePath: string
+}
