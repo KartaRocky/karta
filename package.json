@@ -16,6 +16,7 @@
   "dependencies": {
     "@gitbeaker/rest": "^41.1.1",
     "@octokit/rest": "^21.0.2",
+    "@xyflow/react": "^12.3.5",
     "better-sqlite3": "^11.5.0",
     "cross-env": "^7.0.3",
     "kysely": "^0.27.4",
@@ -23,6 +24,7 @@
     "node-cron": "^3.0.3",
     "react": "^18.0.2",
     "react-dom": "^18.0.2",
+    "reactflow": "^11.11.4",
     "sqlite": "^5.1.1",
     "sqlite3": "^5.1.7"
   },
