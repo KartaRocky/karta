@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "npm run migrate && npm run cron & next dev",
-    "build": "next build",
+    "build": "npm run migrate && next build",
     "start": "npm run migrate && next start",
     "lint": "next lint",
     "test": "cross-env NODE_ENV=test npm run migrate && vitest",
