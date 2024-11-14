@@ -15,12 +15,13 @@ FROM base AS production
 
 WORKDIR /app
 
-RUN chown -R nextjs:nextjs /app
 ENV NODE_ENV=production
 RUN npm ci
 
 RUN addgroup -g 1001 -S nodejs
 RUN adduser -S nextjs -u 1001
+
+RUN chown -R nextjs:nextjs /app
 USER nextjs
 
 
