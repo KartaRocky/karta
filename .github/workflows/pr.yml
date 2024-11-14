@@ -73,7 +73,7 @@ jobs:
           context: .
           platforms: linux/amd64,linux/arm64/v8
           push: true
-          tags: ghcr.io/${{ github.repository }}:latest
+          tags: ghcr.io/kartarocky/karta:latest
           labels: |
             org.opencontainers.image.source=https://github.com/${{ github.repository }}
             org.opencontainers.image.description=Manage and visualize organization repo dependencies
