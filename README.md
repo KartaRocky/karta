@@ -86,5 +86,10 @@ Run the application:
 npm run dev
 ```
 
+If you want to run the cron job that will scan your repos every minute:
+```bash
+npm run cron
+```
+
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
