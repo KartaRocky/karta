@@ -38,6 +38,7 @@
     "@vitejs/plugin-react": "^4.3.3",
     "eslint": "^8",
     "eslint-config-next": "15.0.2",
+    "eslint-plugin-import": "^2.31.0",
     "jsdom": "^25.0.1",
     "nodemon": "^3.1.7",
     "postcss": "^8",
