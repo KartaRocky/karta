@@ -1,8 +1,9 @@
 .container {
+  padding: 2rem;
   position: relative;
-  width: 100%;
+  width: 100vw;
   height: 100vh;
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
 .backgroundImage {
@@ -15,10 +16,4 @@
   z-index: 1;
 }
 
-.react-flow__node-selectorNode {
-  font-size: 12px;
-  background: #eee;
-  border: 1px solid #555;
-  border-radius: 5px;
-  text-align: center;
-}
+

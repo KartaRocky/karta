@@ -1,33 +1,15 @@
 "use client";
 import { SourceDependencies } from "@/lib/types";
-import { Node, ReactFlow } from "@xyflow/react";
+import { Node, ReactFlow, Edge } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
 import { useEffect, useState } from "react";
 import NodeCard from "./ NodeCard";
-import '../../tailwind.config'
-
-// const initialNodes = [
-//   { id: "1", position: { x: 0, y: 0 }, data: { label: "1" } },
-//   { id: "2", position: { x: 0, y: 100 }, data: { label: "2" } },
-// ];
-// const initialEdges = [{ id: "e1-2", source: "1", target: "2" }];
-
-// type Node = {
-//   id: string;
-//   position: { x: number; y: number };
-//   data: any;
-// };
-
-type Edges = {
-  id: string;
-  source: string;
-  target: string;
-};
+import "../../tailwind.config";
 
 const Dependencies = () => {
   const [sourceDeps, setSourceDeps] = useState<SourceDependencies[]>([]);
   const [initialNodes, setInitialNodes] = useState<Node[]>([]);
-  const [initialEdges, setInitialEdges] = useState<Edges[]>([]);
+  const [initialEdges, setInitialEdges] = useState<Edge[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -49,13 +31,11 @@ const Dependencies = () => {
     fetchData();
   }, []);
 
-  console.log(sourceDeps);
-
   useEffect(() => {
     let x = 0;
     let y = 0;
     const nodes: Node[] = [];
-    const edges: Edges[] = [];
+    const edges: Edge[] = [];
     x;
     sourceDeps.forEach((source) => {
       x += 100;
@@ -63,16 +43,12 @@ const Dependencies = () => {
         id: source.source.repository_name,
         position: { x, y },
         data: {
-          label: source.source.repository_name,
+          repositoryName: source.source.repository_name,
           owner: source.source.repository_owner,
           url: source.source.url,
           type: "source",
         },
-        // style: {
-        //   display: "flex",
-        //   alignItems: "start",
-        //   width: "fit-content",
-        // },
+        className: "break-all flex flex-wrap max-w-[166px] min-w-[146px]",
       });
       source.dependencies.forEach((dep) => {
         y += 200;
@@ -80,11 +56,12 @@ const Dependencies = () => {
           id: dep.id.toString(),
           position: { x, y },
           data: {
-            label: dep.value,
+            value: dep.value,
             what: dep.what,
             who: dep.who,
             type: "dependence",
           },
+          className: "break-all flex flex-wrap max-w-[166px] min-w-[146px]",
         });
         edges.push({
           id: dep.id.toString(),
@@ -99,19 +76,15 @@ const Dependencies = () => {
     setInitialEdges(edges);
   }, [sourceDeps]);
 
-  console.log("nodes", initialNodes);
-  console.log("edges", initialEdges);
-
   const nodeTypes = {
     default: NodeCard,
   };
 
   return (
-    <div className="w-[100vw] h-[100vh]">
+    <div className="w-[100vw] h-[100vh] m-2">
       <ReactFlow
         nodes={initialNodes}
         edges={initialEdges}
-        // style={{ background: "pink" }}
         nodeTypes={nodeTypes}
       ></ReactFlow>
     </div>

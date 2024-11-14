@@ -1,34 +1,59 @@
-import { Handle, NodeProps, Position } from "@xyflow/react";
+import { Handle, Node, NodeProps, Position } from "@xyflow/react";
+import Link from "next/link";
 import React from "react";
 
-const NodeCard = ({ data }: NodeProps) => {
-  console.log(data);
-  console.log(data.label);
+type CustomData = {
+  type: "source" | "dependence";
+  repositoryName?: string;
+  owner?: string;
+  url?: string;
+  value?: string;
+  what?: string;
+  who?: string;
+};
+
+type CustomNode = Node<CustomData>;
+
+interface CustomNodeProps extends NodeProps<CustomNode> {}
+
+const NodeCard = ({ data }: CustomNodeProps) => {
   return (
     <>
-      <Handle
-        type="source"
-        position={Position.Bottom}
-        style={{ background: "#555" }}
-      />
       {data && data.type === "source" ? (
-        <div className="px-4 py-2 shadow-md rounded-md bg-white border-2 border-stone-400">
-          <p className="font-bold">{`Value: ${data.label}`}</p>
-          <p>{`Owner: ${data.owner}`}</p>
-          <p>{`URL: ${data.url}`}</p>
-        </div>
+        <>
+          <Handle
+            type="source"
+            position={Position.Bottom}
+            className="w-10 h-1 !bg-green-700 rounded-none border-none"
+          />
+          <div className="text-sm">
+            <p>
+              Repo:{" "}
+              <Link
+                href={`${data.url}`}
+                target="_blank"
+                className="font-bold hover:cursor-pointer hover:underline"
+              >
+                {data.repositoryName}
+              </Link>
+            </p>
+            <p>Owner: {data.owner}</p>
+          </div>
+        </>
       ) : (
-        <div>
-          <p>{`Value: ${data.label}`}</p>
-          <p>{`What: ${data.what}`}</p>
-          <p>{`Who: ${data.who}`}</p>
-        </div>
+        <>
+          <Handle
+            type="target"
+            position={Position.Top}
+            className="w-10 h-1 !bg-green-700 rounded-none border-none"
+          />
+          <div className="text-sm text-start">
+            <p>Who: <strong>{data.who}</strong></p>
+            <p>What: {data.what}</p>
+            <p>Value: {data.value}</p>
+          </div>
+        </>
       )}
-      <Handle
-        type="target"
-        position={Position.Bottom}
-        style={{ top: 10, background: "#555" }}
-      />
     </>
   );
 };
