@@ -10,7 +10,7 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, './'), // Adjust this path based on the root directory structure
+      "@": path.resolve(__dirname, "./"), // Adjust this path based on the root directory structure
     },
   },
 });

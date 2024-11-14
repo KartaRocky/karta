@@ -3,11 +3,10 @@ import { findAllDependenciesByIds } from "../dependencies/dependencyRepository";
 import { getUserName } from "../git_helper";
 import { Dependency, Source, SourceDependencies } from "../types";
 
-
 export interface SaveNewSource {
-  url: string,
-  name: string,
-  path_with_namespace: string
+  url: string;
+  name: string;
+  path_with_namespace: string;
 }
 
 export async function saveSource(newSource: SaveNewSource) {
@@ -16,47 +15,72 @@ export async function saveSource(newSource: SaveNewSource) {
     url: newSource.url,
     repository_name: newSource.name,
     repository_owner: repository_owner,
-    path_with_namespace: newSource.path_with_namespace
-  }
+    path_with_namespace: newSource.path_with_namespace,
+  };
   // Insert the new source into the database
-  await db.insertInto("sources").values(newSourceToSave)
+  await db
+    .insertInto("sources")
+    .values(newSourceToSave)
     .onConflict((oc) => oc.doNothing())
-    .execute()
+    .execute();
 }
 
 export async function findAll() {
   return await db.selectFrom("sources").selectAll().execute();
 }
 
-
-export async function saveAllSourceDependencies(source: string, dependencyIds: number[]) {
-  await db.deleteFrom("sources_dependencies").where("source_id", "==", source).execute();
+export async function saveAllSourceDependencies(
+  source: string,
+  dependencyIds: number[]
+) {
+  await db
+    .deleteFrom("sources_dependencies")
+    .where("source_id", "==", source)
+    .execute();
   dependencyIds.forEach(async (dependencyId) => {
-    await db.insertInto("sources_dependencies").values({ source_id: source, dependency_id: dependencyId })
-      .onConflict((oc) => oc.doNothing()).execute()
-  })
+    await db
+      .insertInto("sources_dependencies")
+      .values({ source_id: source, dependency_id: dependencyId })
+      .onConflict((oc) => oc.doNothing())
+      .execute();
+  });
 }
 
-export async function findAllDependenciesBySource(url: string): Promise<SourceDependencies> {
-  const source = await db.selectFrom("sources").selectAll().where("url", "==", url).executeTakeFirst();
-  const sourceDependencies = await db.selectFrom("sources_dependencies").selectAll().where("source_id", "==", source?.url ?? 'not-found').execute();
-  const dependencies = await findAllDependenciesByIds(sourceDependencies.map(dep => dep.dependency_id))
+export async function findAllDependenciesBySource(
+  url: string
+): Promise<SourceDependencies> {
+  const source = await db
+    .selectFrom("sources")
+    .selectAll()
+    .where("url", "==", url)
+    .executeTakeFirst();
+  const sourceDependencies = await db
+    .selectFrom("sources_dependencies")
+    .selectAll()
+    .where("source_id", "==", source?.url ?? "not-found")
+    .execute();
+  const dependencies = await findAllDependenciesByIds(
+    sourceDependencies.map((dep) => dep.dependency_id)
+  );
 
   const result = {
     source: source ?? {
-      url: '',
-      repository_name: '',
-      repository_owner: '',
-      path_with_namespace: '',
-      created_at: new Date()
+      url: "",
+      repository_name: "",
+      repository_owner: "",
+      path_with_namespace: "",
+      created_at: new Date(),
     },
-    dependencies: dependencies ?? []
-  }
-  return result
+    dependencies: dependencies ?? [],
+  };
+  return result;
 }
 
-export async function findAllSourceDependencies(): Promise<SourceDependencies[]> {
-  const all = await db.selectFrom("sources_dependencies")
+export async function findAllSourceDependencies(): Promise<
+  SourceDependencies[]
+> {
+  const all = await db
+    .selectFrom("sources_dependencies")
     .innerJoin("dependencies", "id", "dependency_id")
     .innerJoin("sources", "url", "source_id")
     .select([
@@ -69,13 +93,16 @@ export async function findAllSourceDependencies(): Promise<SourceDependencies[]>
       "dependencies.who",
       "dependencies.what",
       "dependencies.value",
-      "dependencies.created_at as dependency_created_at"
+      "dependencies.created_at as dependency_created_at",
     ])
-    .execute()
+    .execute();
 
-  const sourceMap = new Map<string, { source: Source, dependencies: Dependency[] }>();
+  const sourceMap = new Map<
+    string,
+    { source: Source; dependencies: Dependency[] }
+  >();
 
-  all.forEach(row => {
+  all.forEach((row) => {
     const sourceUrl = row.source_url;
     if (!sourceMap.has(sourceUrl)) {
       sourceMap.set(sourceUrl, {
@@ -84,9 +111,9 @@ export async function findAllSourceDependencies(): Promise<SourceDependencies[]>
           repository_name: row.repository_name,
           repository_owner: row.repository_owner,
           path_with_namespace: row.path_with_namespace,
-          created_at: row.source_created_at
+          created_at: row.source_created_at,
         },
-        dependencies: []
+        dependencies: [],
       });
     }
     sourceMap.get(sourceUrl)?.dependencies.push({
@@ -94,15 +121,18 @@ export async function findAllSourceDependencies(): Promise<SourceDependencies[]>
       who: row.who,
       what: row.what,
       value: row.value,
-      created_at: row.dependency_created_at
+      created_at: row.dependency_created_at,
     });
   });
 
   return Array.from(sourceMap.values());
 }
 
-export async function findAllSourceDependenciesBySource(source: string): Promise<SourceDependencies> {
-  const all = await db.selectFrom("sources_dependencies")
+export async function findAllSourceDependenciesBySource(
+  source: string
+): Promise<SourceDependencies> {
+  const all = await db
+    .selectFrom("sources_dependencies")
     .innerJoin("dependencies", "id", "dependency_id")
     .innerJoin("sources", "url", "source_id")
     .select([
@@ -115,14 +145,17 @@ export async function findAllSourceDependenciesBySource(source: string): Promise
       "dependencies.who",
       "dependencies.what",
       "dependencies.value",
-      "dependencies.created_at as dependency_created_at"
+      "dependencies.created_at as dependency_created_at",
     ])
     .where("sources.url", "==", source)
-    .execute()
+    .execute();
 
-  const sourceMap = new Map<string, { source: Source, dependencies: Dependency[] }>();
+  const sourceMap = new Map<
+    string,
+    { source: Source; dependencies: Dependency[] }
+  >();
 
-  all.forEach(row => {
+  all.forEach((row) => {
     const sourceUrl = row.source_url;
     if (!sourceMap.has(sourceUrl)) {
       sourceMap.set(sourceUrl, {
@@ -131,9 +164,9 @@ export async function findAllSourceDependenciesBySource(source: string): Promise
           repository_name: row.repository_name,
           repository_owner: row.repository_owner,
           path_with_namespace: row.path_with_namespace,
-          created_at: row.source_created_at
+          created_at: row.source_created_at,
         },
-        dependencies: []
+        dependencies: [],
       });
     }
     sourceMap.get(sourceUrl)?.dependencies.push({
@@ -141,7 +174,7 @@ export async function findAllSourceDependenciesBySource(source: string): Promise
       who: row.who,
       what: row.what,
       value: row.value,
-      created_at: row.dependency_created_at
+      created_at: row.dependency_created_at,
     });
   });
 

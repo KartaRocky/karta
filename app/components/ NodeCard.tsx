@@ -48,7 +48,9 @@ const NodeCard = ({ data }: CustomNodeProps) => {
             className="w-10 h-1 !bg-green-700 rounded-none border-none"
           />
           <div className="text-sm text-start">
-            <p>Who: <strong>{data.who}</strong></p>
+            <p>
+              Who: <strong>{data.who}</strong>
+            </p>
             <p>What: {data.what}</p>
             <p>Value: {data.value}</p>
           </div>

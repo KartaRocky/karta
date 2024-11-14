@@ -3,6 +3,7 @@
 Karta is a tool designed to help you visualize and manage dependencies across repositories within your project. By mapping connections between services, datasets, endpoints, and other resources, Karta gives teams a comprehensive view of how their codebases interact. This insight is crucial for planning changes, understanding the impact of updates, and maintaining a well-organized, reliable project ecosystem.
 
 ## Features
+
 Dependency Mapping: Karta identifies and maps out dependencies between repositories, revealing how different services, endpoints, and datasets are interconnected.
 Relationship Insights: Discover exactly how your repositories rely on each other—for instance, which repositories are consuming specific APIs or datasets from other repositories.
 Impact Analysis: Get a clear view of what parts of your project might be affected by changes in a specific repository, helping to reduce unexpected issues in dependent systems.
@@ -31,23 +32,23 @@ Here’s an example configuration from an auth repository that lists the depende
 
 ```json
 [
-    {
-      "who": "bprice",
-      "what": "endpoint",
-      "value": "/v1/auth"
-    },
-    {
-      "who": "lprice",
-      "what": "endpoint",
-      "value": "/v1/auth"
-    },
-    {
-      "who": "lprice",
-      "what": "endpoint",
-      "value": "/v1/me"
-    }
+  {
+    "who": "bprice",
+    "what": "endpoint",
+    "value": "/v1/auth"
+  },
+  {
+    "who": "lprice",
+    "what": "endpoint",
+    "value": "/v1/auth"
+  },
+  {
+    "who": "lprice",
+    "what": "endpoint",
+    "value": "/v1/me"
+  }
 ]
-````
+```
 
 Explanation of the Example
 In this example:
@@ -58,6 +59,7 @@ The lprice project uses both `/v1/auth` and `/v1/me` endpoints from the `auth` r
 This setup allows Karta to map these relationships across your project, giving you a clear view of how repositories depend on each other’s resources.
 
 ### Adding More Dependencies
+
 To add more dependencies, simply add new objects to the array in .karta.json for each relationship. For instance, if a new project called cprice starts using a new dataset from auth, you could add it like this:
 
 ```json
@@ -66,30 +68,33 @@ To add more dependencies, simply add new objects to the array in .karta.json for
   "what": "dataset",
   "value": "user_data_v2"
 }
-````
+```
 
 Viewing and Managing Dependencies
 After setting up `.karta.json` across repositories, Karta can visualize the dependencies and provide insights into the connections between repositories. This manual approach allows you to easily update or modify dependencies as your project evolves.
 
 ### Database Configuration
+
 Karta uses SQLite to store dependency information, with the database.sqlite file generated in the same folder where the application is started. When deploying Karta in Kubernetes, you can persist the database file if you want but usually is unnecessary.
 
 ## Getting Started
 
 Install the dependencies:
+
 ```bash
 npm i
 ```
 
 Run the application:
+
 ```bash
 npm run dev
 ```
 
 If you want to run the cron job that will scan your repos every minute:
+
 ```bash
 npm run cron
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-

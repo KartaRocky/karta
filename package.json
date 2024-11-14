@@ -10,7 +10,9 @@
     "lint": "next lint",
     "test": "cross-env NODE_ENV=test npm run migrate && vitest",
     "migrate": "npx tsx scripts/migration.ts",
-    "cron": "npx tsx scripts/cron.ts"
+    "cron": "npx tsx scripts/cron.ts",
+    "prepare": "husky",
+    "prettier": "prettier --write ."
   },
   "dependencies": {
     "@gitbeaker/rest": "^41.1.1",
@@ -38,14 +40,22 @@
     "@vitejs/plugin-react": "^4.3.3",
     "eslint": "^8",
     "eslint-config-next": "15.0.2",
+    "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-prettier": "^5.2.1",
+    "husky": "^9.1.6",
     "jsdom": "^25.0.1",
+    "lint-staged": "^15.2.10",
     "nodemon": "^3.1.7",
     "postcss": "^8",
+    "prettier": "^3.3.3",
     "tailwindcss": "^3.4.1",
     "tsx": "^4.19.2",
     "typescript": "^5",
     "vitest": "^2.1.5",
     "vitest-fetch-mock": "^0.4.2"
+  },
+  "lint-staged": {
+    "**/*": "prettier --write --ignore-unknown"
   }
 }
