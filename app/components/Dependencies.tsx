@@ -27,7 +27,6 @@ const Dependencies = () => {
         throw err;
       }
     };
-
     fetchData();
   }, []);
 
