@@ -35,7 +35,6 @@ const Dependencies = () => {
     let y = 0;
     const nodes: Node[] = [];
     const edges: Edge[] = [];
-    x;
     sourceDeps.forEach((source) => {
       x += 100;
       nodes.push({

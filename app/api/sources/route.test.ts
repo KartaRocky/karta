@@ -1,4 +1,3 @@
-
 /**
  * @jest-environment node
  */
@@ -7,16 +6,21 @@ import { POST } from '@/app/api/sources/route'; // Import your route handler
 
 import { NextRequest } from 'next/server';
 import { saveSource } from '@/lib/sources/sourceRepository';
+import { vi, describe, it, expect, afterEach } from 'vitest'
 
 // Mock the dependencyRepository
-jest.mock('@/lib/sources/sourceRepository');
+vi.mock('@/lib/sources/sourceRepository');
 describe('POST /api/sources', () => {
+
+  afterEach(() => {
+    vi.restoreAllMocks()
+  })
 
   it('should register a source successfully', async () => {
     // Test data
-    const mockSave = saveSource as jest.Mock;
+    const mockSave = vi.mocked(saveSource).mockResolvedValue()
     const sourceData = 'https://github.com/exampleUser/repo.git';
-    mockSave.mockResolvedValueOnce(sourceData);
+//    mockSave.mockResolvedValueOnce(sourceData);
 
     const request = new NextRequest(new Request('http://localhost', {
       method: 'POST',

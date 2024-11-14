@@ -4,6 +4,7 @@
  */
 import { db } from '@/lib/database';
 import { saveDependency } from './dependencyRepository';
+import { afterEach, describe, expect, it } from 'vitest';
 
 
 describe('POST /api/sources', () => {

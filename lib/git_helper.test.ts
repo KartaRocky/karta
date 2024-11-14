@@ -3,6 +3,7 @@
  * @jest-environment node
  */
 import { getUserName, getRepoName } from '@/lib/git_helper';
+import { describe, expect, test } from 'vitest';
 
 describe('GitHelper', () => {
   // Test for HTTPS URLs

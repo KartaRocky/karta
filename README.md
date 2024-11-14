@@ -1,42 +1,90 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Karta
+
+Karta is a tool designed to help you visualize and manage dependencies across repositories within your project. By mapping connections between services, datasets, endpoints, and other resources, Karta gives teams a comprehensive view of how their codebases interact. This insight is crucial for planning changes, understanding the impact of updates, and maintaining a well-organized, reliable project ecosystem.
+
+## Features
+Dependency Mapping: Karta identifies and maps out dependencies between repositories, revealing how different services, endpoints, and datasets are interconnected.
+Relationship Insights: Discover exactly how your repositories rely on each other—for instance, which repositories are consuming specific APIs or datasets from other repositories.
+Impact Analysis: Get a clear view of what parts of your project might be affected by changes in a specific repository, helping to reduce unexpected issues in dependent systems.
+Interactive Visualization: Visualize the web of dependencies in an intuitive, easy-to-navigate graph that highlights key connections and dependencies at a glance.
+
+## Demo
+
+- Link to demo app.
 
 ## Requirements
 
 - Node 22+
-- Flyway (`brew install flyway`)
-- Java 17+ suggestion to install (`https://sdkman.io/`) needs because Flyway
+
+## Usage
+
+To start using Karta, each repository in your project needs a .karta.json file located at the root level. This file defines the dependencies that other projects have on the resources within the repository. Here’s how to set up and configure .karta.json to map out these relationships effectively.
+
+Setting Up .karta.json
+Create a .karta.json file in the root of each repository where you want to specify dependencies.
+Define each dependency as an object within an array in .karta.json. Each object should contain:
+who: The name of the repository or project that relies on this resource.
+what: The type of dependency (e.g., endpoint, dataset, library).
+value: The specific resource being used (e.g., endpoint URL, dataset ID).
+Example `.karta.json` File
+Here’s an example configuration from an auth repository that lists the dependencies other repositories have on its endpoints:
+
+```json
+[
+    {
+      "who": "bprice",
+      "what": "endpoint",
+      "value": "/v1/auth"
+    },
+    {
+      "who": "lprice",
+      "what": "endpoint",
+      "value": "/v1/auth"
+    },
+    {
+      "who": "lprice",
+      "what": "endpoint",
+      "value": "/v1/me"
+    }
+]
+````
+
+Explanation of the Example
+In this example:
+
+The auth repository has two endpoints, `/v1/auth` and `/v1/me`.
+The bprice project uses the `/v1/auth` endpoint from the `auth` repository.
+The lprice project uses both `/v1/auth` and `/v1/me` endpoints from the `auth` repository.
+This setup allows Karta to map these relationships across your project, giving you a clear view of how repositories depend on each other’s resources.
+
+### Adding More Dependencies
+To add more dependencies, simply add new objects to the array in .karta.json for each relationship. For instance, if a new project called cprice starts using a new dataset from auth, you could add it like this:
+
+```json
+{
+  "who": "cprice",
+  "what": "dataset",
+  "value": "user_data_v2"
+}
+````
+
+Viewing and Managing Dependencies
+After setting up `.karta.json` across repositories, Karta can visualize the dependencies and provide insights into the connections between repositories. This manual approach allows you to easily update or modify dependencies as your project evolves.
+
+### Database Configuration
+Karta uses SQLite to store dependency information, with the database.sqlite file generated in the same folder where the application is started. When deploying Karta in Kubernetes, you can persist the database file if you want but usually is unnecessary.
 
 ## Getting Started
 
-First, run the development server:
+Install the dependencies:
+```bash
+npm i
+```
 
+Run the application:
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.

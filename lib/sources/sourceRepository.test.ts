@@ -4,6 +4,7 @@
  */
 import { db } from '@/lib/database';
 import { findAll, saveSource } from './sourceRepository';
+import { afterEach, describe, expect, it } from 'vitest';
 
 
 describe('POST /api/sources', () => {

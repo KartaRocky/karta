@@ -9,7 +9,7 @@ if (process.env.NODE_ENV == 'test') {
   })
 } else {
   dialect = new SqliteDialect({
-    database: new SQLite('database.sqlite'),
+    database: new SQLite(process.env.DATABASE_LOCATION ?? 'database.sqlite'),
   })
 }
 

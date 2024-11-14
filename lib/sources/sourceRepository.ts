@@ -1,7 +1,7 @@
 import { db } from "../database";
 import { findAllDependenciesByIds } from "../dependencies/dependencyRepository";
 import { getUserName } from "../git_helper";
-import { Dependency, Source, SourceDependencies, SourceDependenciesOverview } from "../types";
+import { Dependency, Source, SourceDependencies } from "../types";
 
 
 export interface SaveNewSource {

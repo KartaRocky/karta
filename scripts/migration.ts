@@ -20,8 +20,9 @@ export async function migrateToLatest() {
             database: new SQLite('database-test.sqlite'),
         })
     } else {
+        console.log('LOCATION', process.env.DATABASE_LOCATION)
         dialect = new SqliteDialect({
-            database: new SQLite('database.sqlite'),
+            database: new SQLite(process.env.DATABASE_LOCATION ?? 'database.sqlite'),
         })
     }
     const db = new Kysely<Database>({

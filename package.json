@@ -8,8 +8,7 @@
     "build": "npm run migrate && next build",
     "start": "next start",
     "lint": "next lint",
-    "test": "cross-env NODE_ENV=test npm run migrate && cross-env jest",
-    "test:watch": "jest --watch",
+    "test": "cross-env NODE_ENV=test npm run migrate && vitest",
     "migrate": "npx tsx scripts/migration.ts",
     "cron": "npx tsx scripts/cron.ts"
   },
@@ -30,28 +29,25 @@
   },
   "devDependencies": {
     "@testing-library/dom": "^10.4.0",
-    "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.0.1",
     "@types/better-sqlite3": "^7.6.11",
     "@types/express": "^5.0.0",
-    "@types/jest": "^29.5.14",
     "@types/node": "^20.17.6",
     "@types/node-cron": "^3.0.11",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "@types/sqlite3": "^3.1.11",
+    "@vitejs/plugin-react": "^4.3.3",
     "eslint": "^8",
     "eslint-config-next": "15.0.2",
-    "jest": "^29.7.0",
-    "jest-environment-jsdom": "^29.7.0",
+    "jsdom": "^25.0.1",
     "node-mocks-http": "^1.16.1",
-    "nodemon": "^2.0.20",
-    "pm2": "^5.4.2",
+    "nodemon": "^3.1.7",
     "postcss": "^8",
     "tailwindcss": "^3.4.1",
-    "ts-jest": "^29.2.5",
     "ts-node": "^10.9.2",
     "tsx": "^4.19.2",
-    "typescript": "^5"
+    "typescript": "^5",
+    "vitest": "^2.1.5"
   }
 }
