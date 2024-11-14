@@ -12,6 +12,8 @@ RUN npm run build
 
 
 FROM base AS production
+
+RUN chown -R nextjs:nextjs 
 WORKDIR /app
 
 ENV NODE_ENV=production
