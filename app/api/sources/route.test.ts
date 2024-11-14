@@ -18,7 +18,7 @@ describe('POST /api/sources', () => {
 
   it('should register a source successfully', async () => {
     // Test data
-    const mockSave = vi.mocked(saveSource).mockResolvedValue()
+    vi.mocked(saveSource).mockResolvedValue()
     const sourceData = 'https://github.com/exampleUser/repo.git';
 //    mockSave.mockResolvedValueOnce(sourceData);
 

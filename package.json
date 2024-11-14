@@ -48,6 +48,7 @@
     "ts-node": "^10.9.2",
     "tsx": "^4.19.2",
     "typescript": "^5",
-    "vitest": "^2.1.5"
+    "vitest": "^2.1.5",
+    "vitest-fetch-mock": "^0.4.2"
   }
 }
