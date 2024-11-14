@@ -21,7 +21,7 @@ RUN npm ci
 RUN addgroup -g 1001 -S nodejs
 RUN adduser -S nextjs -u 1001
 
-RUN chown -R nextjs:nextjs /app
+RUN chown -R nextjs:nodejs /app
 USER nextjs
 
 
