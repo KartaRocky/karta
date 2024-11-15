@@ -79,6 +79,29 @@ Karta uses SQLite to store dependency information, with the database.sqlite file
 
 ## Getting Started
 
+# Environment Variables
+
+We have some environment variables that need to be passed to make it work:
+
+- DATABASE_LOCATION: Where the database.sqlite is, by default it will be in the same folder that we run the application.
+- PRIVATE_TOKEN: The token that has access to read all repos of the organization.
+- BASE_GIT_URL: The git url
+- GIT_TYPE: Type of git if it's github or gitlab (we only support both for now)
+- ORGANIZATION: What is the name of the organization
+
+# Docker
+
+To run in docker, it's important to pass all the environment
+
+```bash
+docker run -p 3000:3000 -d -e DATABASE_LOCATION='/app/database.sqlite' -e PRIVATE_TOKEN="your_private_token" -e BASE_GIT_URL="https://api.github.com" -e ORGANIZATION="YourOrganization (ex. KartaRocky)" -e GIT_TYPE="github" ghcr.io/kartarocky/karta:latest
+```
+
+# Dev
+
+First thing is to create a .env file in the root of project.
+There's an .env.example that you can change.
+
 Install the dependencies:
 
 ```bash
