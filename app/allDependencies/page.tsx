@@ -1,12 +1,12 @@
 "use client";
 import { SourceDependencies } from "@/lib/types";
-import { Node, ReactFlow, Edge } from "@xyflow/react";
+import { Node, ReactFlow, Edge, MiniMap } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
 import { useEffect, useState } from "react";
-import NodeCard from "./ NodeCard";
+import NodeCard from "../components/ NodeCard";
 import "../../tailwind.config";
 
-const Dependencies = () => {
+const AllDependencies = () => {
   const [sourceDeps, setSourceDeps] = useState<SourceDependencies[]>([]);
   const [initialNodes, setInitialNodes] = useState<Node[]>([]);
   const [initialEdges, setInitialEdges] = useState<Edge[]>([]);
@@ -33,11 +33,19 @@ const Dependencies = () => {
   useEffect(() => {
     let x = 0;
     let y = 0;
+    let yDep = 200;
+    let count = 0;
     const nodes: Node[] = [];
     const edges: Edge[] = [];
-    x;
     sourceDeps.forEach((source) => {
       x += 100;
+      count++;
+      if (count === 4) {
+        count = 0;
+        x=0
+        yDep += 400;
+        y+=400
+      }
       nodes.push({
         id: source.source.repository_name,
         position: { x, y },
@@ -50,10 +58,9 @@ const Dependencies = () => {
         className: "break-all flex flex-wrap max-w-[166px] min-w-[146px]",
       });
       source.dependencies.forEach((dep) => {
-        y += 200;
         nodes.push({
           id: dep.id.toString(),
-          position: { x, y },
+          position: { x, y: yDep },
           data: {
             value: dep.value,
             what: dep.what,
@@ -67,7 +74,6 @@ const Dependencies = () => {
           source: source.source.repository_name,
           target: dep.id.toString(),
         });
-        y = 0;
         x += 170;
       });
     });
@@ -85,9 +91,11 @@ const Dependencies = () => {
         nodes={initialNodes}
         edges={initialEdges}
         nodeTypes={nodeTypes}
-      ></ReactFlow>
+      >
+        <MiniMap />
+      </ReactFlow>
     </div>
   );
 };
 
-export default Dependencies;
+export default AllDependencies;
