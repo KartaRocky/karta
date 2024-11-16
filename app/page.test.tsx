@@ -108,7 +108,7 @@ describe("Page", () => {
     );
     render(<Page />);
 
-    const title = screen.getByText("Karta");
+    const title = screen.getByText("All dependencies");
 
     expect(title).toBeDefined();
   });

@@ -42,9 +42,9 @@ const AllDependencies = () => {
       count++;
       if (count === 4) {
         count = 0;
-        x=0
+        x = 0;
         yDep += 400;
-        y+=400
+        y += 400;
       }
       nodes.push({
         id: source.source.repository_name,
