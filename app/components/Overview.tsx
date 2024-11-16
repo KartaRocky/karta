@@ -1,6 +1,6 @@
 "use client";
 import { SourceDependencies } from "@/lib/types";
-import { Edge, ReactFlow, useNodesState } from "@xyflow/react";
+import { Edge, MiniMap, ReactFlow, useNodesState } from "@xyflow/react";
 import { useEffect, useState } from "react";
 import "../../tailwind.config";
 import "@xyflow/react/dist/style.css";
@@ -91,14 +91,16 @@ const Overview = () => {
   };
 
   return (
-    <div className="w-[100vw] h-[100vh] m-2">
+    <div className="w-auto h-[90vh] mt-2">
       <ReactFlow
         nodes={nodes}
         edges={initialEdges}
         onNodesChange={onNodesChange}
         //   nodeTypes={nodeTypes}
         fitView
-      ></ReactFlow>
+      >
+        <MiniMap />
+      </ReactFlow>
     </div>
   );
 };
