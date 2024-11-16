@@ -2,32 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
-/* :root {
+:root {
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
   }
-} */
+}
 
 body {
   font-family: Arial, Helvetica, sans-serif;
-}
-
-.container {
-  padding: 2rem;
-  position: relative;
-  width: 100vw;
-  height: 100vh;
-  /* overflow: hidden; */
-}
-
-.backgroundImage {
-  object-fit: cover;
-  object-position: "center";
-}
-
-.content {
-  position: relative;
-  z-index: 1;
 }

@@ -2,6 +2,7 @@
 import { SourceDependencies } from "@/lib/types";
 import {
   Edge,
+  MiniMap,
   ReactFlow,
   useNodesInitialized,
   useNodesState,
@@ -105,14 +106,16 @@ const Overview = () => {
   };
 
   return (
-    <div className="w-[100vw] h-[100vh] m-2">
+    <div className="w-auto h-[90vh] mt-2">
       <ReactFlow
         nodes={nodes}
         edges={initialEdges}
         onNodesChange={onNodesChange}
         //   nodeTypes={nodeTypes}
         fitView
-      ></ReactFlow>
+      >
+        <MiniMap />
+      </ReactFlow>
     </div>
   );
 };

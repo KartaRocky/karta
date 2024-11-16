@@ -39,7 +39,7 @@ const AllDependencies = () => {
   useEffect(() => {
     let x = 0;
     let y = 0;
-    let yDep = 200;
+    let yDep = 150;
     let count = 0;
     const nodes: Node[] = [];
     const edges: Edge[] = [];
@@ -49,8 +49,8 @@ const AllDependencies = () => {
       if (count === 4) {
         count = 0;
         x = 0;
-        yDep += 400;
-        y += 400;
+        yDep += 300;
+        y += 300;
       }
       nodes.push({
         id: source.source.repository_name,
@@ -92,7 +92,7 @@ const AllDependencies = () => {
   };
 
   return (
-    <div className="w-[100vw] h-[100vh] m-2">
+    <div className="w-auto h-[90vh] mt-2">
       <ReactFlowProvider>
         <ReactFlow
           nodes={initialNodes}
