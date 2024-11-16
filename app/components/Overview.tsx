@@ -1,31 +1,45 @@
 "use client";
 import { SourceDependencies } from "@/lib/types";
-import { Edge, ReactFlow, useNodesState } from "@xyflow/react";
+import {
+  Edge,
+  ReactFlow,
+  useNodesInitialized,
+  useNodesState,
+} from "@xyflow/react";
 import { useEffect, useState } from "react";
 import "../../tailwind.config";
 import "@xyflow/react/dist/style.css";
+import { useLayoutedElements } from "../hooks/useLayoutedElements";
 
 const Overview = () => {
+  const nodesInitialized = useNodesInitialized();
   const [initialEdges, setInitialEdges] = useState<Edge[]>([]);
   const [nodes, setNodes, onNodesChange] = useNodesState([]);
+  const { getLayoutedElements } = useLayoutedElements();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await fetch("/api/dependencies");
         if (!response.ok) {
-          console.log("res status: ", response.status);
           throw new Error(`Response status: ${response.status}`);
         }
         const data = await response.json();
         defineNodesAndEdges(data);
       } catch (err) {
-        console.log(err);
         throw err;
       }
     };
     fetchData();
   }, []);
+
+  useEffect(() => {
+    if (nodesInitialized) {
+      getLayoutedElements({
+        "elk.algorithm": "org.eclipse.elk.force",
+      });
+    }
+  }, [nodesInitialized]);
 
   const defineNodesAndEdges = (data: SourceDependencies[]) => {
     const sources = data.map((res) => {

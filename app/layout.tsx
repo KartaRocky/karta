@@ -4,6 +4,7 @@ import "./globals.css";
 import Image from "next/image";
 import backgroundImage from "../public/gray_shadow_bg.jpeg";
 import Link from "next/link";
+import { ReactFlowProvider } from "@xyflow/react";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -43,7 +44,7 @@ export default function RootLayout({
             <Link href={"/"} className="text-3xl font-bold ">
               Karta
             </Link>
-            {children}
+            <ReactFlowProvider>{children}</ReactFlowProvider>
           </div>
         </div>
       </body>
