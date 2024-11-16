@@ -1,6 +1,12 @@
 "use client";
 import { SourceDependencies } from "@/lib/types";
-import { Node, ReactFlow, Edge, MiniMap } from "@xyflow/react";
+import {
+  Node,
+  ReactFlow,
+  Edge,
+  MiniMap,
+  ReactFlowProvider,
+} from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
 import { useEffect, useState } from "react";
 import NodeCard from "../components/ NodeCard";
@@ -87,13 +93,15 @@ const AllDependencies = () => {
 
   return (
     <div className="w-[100vw] h-[100vh] m-2">
-      <ReactFlow
-        nodes={initialNodes}
-        edges={initialEdges}
-        nodeTypes={nodeTypes}
-      >
-        <MiniMap />
-      </ReactFlow>
+      <ReactFlowProvider>
+        <ReactFlow
+          nodes={initialNodes}
+          edges={initialEdges}
+          nodeTypes={nodeTypes}
+        >
+          <MiniMap />
+        </ReactFlow>
+      </ReactFlowProvider>
     </div>
   );
 };
