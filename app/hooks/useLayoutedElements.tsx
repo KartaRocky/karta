@@ -26,16 +26,16 @@ export const useLayoutedElements = () => {
       edges: getEdges(),
     };
 
-    //@ts-ignore
+    //@ts-expect-error need to improve this
     elk.layout(graph).then(({ children }) => {
       // By mutating the children in-place we saves ourselves from creating a
       // needless copy of the nodes array.
       children?.forEach((node) => {
-        //@ts-ignore
+        //@ts-expect-error need to improve this
         node.position = { x: node.x, y: node.y };
       });
 
-      //@ts-ignore
+      //@ts-expect-error need to improve this
       setNodes(children);
       window.requestAnimationFrame(() => {
         fitView();
