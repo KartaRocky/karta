@@ -1,3 +1,4 @@
+import { ReactFlowProvider } from "@xyflow/react";
 import Overview from "./components/Overview";
 import Link from "next/link";
 
@@ -10,7 +11,9 @@ export default function Home() {
       >
         All dependencies
       </Link>
-      <Overview />
+      <ReactFlowProvider>
+        <Overview />
+      </ReactFlowProvider>
     </div>
   );
 }
