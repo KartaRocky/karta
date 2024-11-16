@@ -44,7 +44,7 @@ export default function RootLayout({
             <Link href={"/"} className="text-3xl font-bold ">
               Karta
             </Link>
-            <ReactFlowProvider>{children}</ReactFlowProvider>
+            {children}
           </div>
         </div>
       </body>
