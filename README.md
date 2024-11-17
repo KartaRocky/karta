@@ -11,7 +11,7 @@ Interactive Visualization: Visualize the web of dependencies in an intuitive, ea
 
 ## Demo
 
-- Link to demo app.
+- [Demo app](https://karta.barbarakogus.com/)
 
 ## Requirements
 
