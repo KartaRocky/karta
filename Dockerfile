@@ -32,4 +32,4 @@ COPY --from=builder /app/public ./public
 COPY --from=builder /app/scripts ./scripts
 COPY --from=builder /app/migrations ./migrations
 
-CMD npm start
+CMD npm run startWithCron

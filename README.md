@@ -121,3 +121,7 @@ npm run cron
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+# Prod
+
+You must to run `npm run startWithCron` check in `package.json` what it's doing.
