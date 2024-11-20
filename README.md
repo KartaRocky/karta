@@ -21,13 +21,17 @@ Karta is a tool designed to help you visualize and manage dependencies across re
 
 To start using Karta, each repository in your project needs a `.karta.json` file located at the root level. This file defines the dependencies that other projects have on the resources within the repository. Here’s how to set up and configure `.karta.json` to map out these relationships effectively.
 
-Setting Up .karta.json
-Create a .karta.json file in the root of each repository where you want to specify dependencies.
-Define each dependency as an object within an array in .karta.json. Each object should contain:
-who: The name of the repository or project that relies on this resource.
-what: The type of dependency (e.g., endpoint, dataset, library).
-value: The specific resource being used (e.g., endpoint URL, dataset ID).
-Example `.karta.json` File
+### Setting Up .karta.json
+Create a `.karta.json` file in the root of each repository where you want to specify dependencies.
+Define each dependency as an object within an array in `.karta.json`. 
+
+Each object should contain:
+- who: The name of the repository or project that relies on this resource.
+- what: The type of dependency (e.g., endpoint, dataset, library).
+- value: The specific resource being used (e.g., endpoint URL, dataset ID).
+
+
+#### Example `.karta.json` File
 Here’s an example configuration from an auth repository that lists the dependencies other repositories have on its endpoints:
 
 ```json
