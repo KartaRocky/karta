@@ -19,7 +19,7 @@ Karta is a tool designed to help you visualize and manage dependencies across re
 
 ## Usage
 
-To start using Karta, each repository in your project needs a `.karta.json` file located at the root level. This file defines the dependencies that other projects have on the resources within the repository. Here’s how to set up and configure .karta.json to map out these relationships effectively.
+To start using Karta, each repository in your project needs a `.karta.json` file located at the root level. This file defines the dependencies that other projects have on the resources within the repository. Here’s how to set up and configure `.karta.json` to map out these relationships effectively.
 
 Setting Up .karta.json
 Create a .karta.json file in the root of each repository where you want to specify dependencies.
