@@ -11,6 +11,7 @@ import { useEffect, useState } from "react";
 import "../../tailwind.config";
 import "@xyflow/react/dist/style.css";
 import { useLayoutedElements } from "../hooks/useLayoutedElements";
+import NodeCircle from "./NodeCircle";
 
 const Overview = () => {
   const nodesInitialized = useNodesInitialized();
@@ -18,35 +19,11 @@ const Overview = () => {
   const [nodes, setNodes, onNodesChange] = useNodesState([]);
   const { getLayoutedElements } = useLayoutedElements();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch("/api/dependencies");
-        if (!response.ok) {
-          throw new Error(`Response status: ${response.status}`);
-        }
-        const data = await response.json();
-        defineNodesAndEdges(data);
-      } catch (err) {
-        throw err;
-      }
-    };
-    fetchData();
-  }, []);
-
-  useEffect(() => {
-    if (nodesInitialized) {
-      getLayoutedElements({
-        "elk.algorithm": "org.eclipse.elk.force",
-      });
-    }
-  }, [nodesInitialized]);
-
   const defineNodesAndEdges = (data: SourceDependencies[]) => {
     const sources = data.map((res) => {
       return {
         label: res.source.repository_name,
-        url: res.source.url,
+        // url: res.source.url,
         type: "source",
         totalDeps: res.dependencies.length,
       };
@@ -56,9 +33,9 @@ const Overview = () => {
         if (sources.filter((s) => s.label === dep.who).length === 0) {
           sources.push({
             label: dep.who,
-            url: "",
+            // url: "",
             type: "dependency",
-            totalDeps: res.dependencies.length,
+            totalDeps: 0, //ask thiago
           });
         }
       });
@@ -70,6 +47,9 @@ const Overview = () => {
           id: dep.id.toString(),
           source: res.source.repository_name,
           target: dep.who,
+          style: {
+            stroke: "#a1a1aa",
+          },
         };
         if (
           edges.filter(
@@ -99,10 +79,39 @@ const Overview = () => {
         id: source.label,
         position: { x, y },
         data: source,
+        className: "rounded-full w-auto border-none ",
       };
     }) as [];
     setNodes(nodes);
     setInitialEdges(edges);
+  };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch("/api/dependencies");
+        if (!response.ok) {
+          throw new Error(`Response status: ${response.status}`);
+        }
+        const data = await response.json();
+        defineNodesAndEdges(data);
+      } catch (err) {
+        throw err;
+      }
+    };
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    if (nodesInitialized) {
+      getLayoutedElements({
+        "elk.algorithm": "org.eclipse.elk.force",
+      });
+    }
+  }, [nodesInitialized]);
+
+  const nodeTypes = {
+    default: NodeCircle,
   };
 
   return (
@@ -111,7 +120,7 @@ const Overview = () => {
         nodes={nodes}
         edges={initialEdges}
         onNodesChange={onNodesChange}
-        //   nodeTypes={nodeTypes}
+        nodeTypes={nodeTypes}
         fitView
       >
         <MiniMap />

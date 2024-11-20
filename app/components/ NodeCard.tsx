@@ -3,7 +3,7 @@ import Link from "next/link";
 import React from "react";
 
 type CustomData = {
-  type: "source" | "dependence";
+  type: "source" | "dependency";
   repositoryName?: string;
   owner?: string;
   url?: string;
