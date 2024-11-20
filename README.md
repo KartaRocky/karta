@@ -4,10 +4,10 @@ Karta is a tool designed to help you visualize and manage dependencies across re
 
 ## Features
 
-Dependency Mapping: Karta identifies and maps out dependencies between repositories, revealing how different services, endpoints, and datasets are interconnected.
-Relationship Insights: Discover exactly how your repositories rely on each other—for instance, which repositories are consuming specific APIs or datasets from other repositories.
-Impact Analysis: Get a clear view of what parts of your project might be affected by changes in a specific repository, helping to reduce unexpected issues in dependent systems.
-Interactive Visualization: Visualize the web of dependencies in an intuitive, easy-to-navigate graph that highlights key connections and dependencies at a glance.
+- Dependency Mapping: Karta identifies and maps out dependencies between repositories, revealing how different services, endpoints, and datasets are interconnected.
+- Relationship Insights: Discover exactly how your repositories rely on each other—for instance, which repositories are consuming specific APIs or datasets from other repositories.
+- Impact Analysis: Get a clear view of what parts of your project might be affected by changes in a specific repository, helping to reduce unexpected issues in dependent systems.
+- Interactive Visualization: Visualize the web of dependencies in an intuitive, easy-to-navigate graph that highlights key connections and dependencies at a glance.
 
 ## Demo
 
