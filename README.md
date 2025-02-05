@@ -11,7 +11,7 @@ Karta is a tool designed to help you visualize and manage dependencies across re
 
 ## Demo
 
-- [Demo app](https://karta.barbarakogus.com/)
+![out](https://github.com/user-attachments/assets/64e37e62-6d3e-4038-abbf-40e8199d51e1)
 
 ## Requirements
 
